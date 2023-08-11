@@ -7,14 +7,13 @@ import productsService from '../../../src/services/products.service';
 describe('ProductsService', function () {
   beforeEach(function () { sinon.restore(); });
 
+  it('retorna um status SUCCESSFULL e um array', async function () {
 
-  it('retorna...', async function () {
-    // Arrange
     const productsInstance = ProductModel.build(productsMock.allProducts[0]);
     sinon.stub(ProductModel, 'findAll').resolves([productsInstance]);
-    // Act
+
     const productResponse = await productsService.getAll();
-    // Assert
+
     expect(productResponse.status).to.eq('SUCCESSFUL');  
     expect(productResponse.data).to.be.instanceOf(Array);
   });

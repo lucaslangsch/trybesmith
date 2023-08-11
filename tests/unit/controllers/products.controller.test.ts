@@ -20,15 +20,14 @@ describe('ProductsController', function () {
   });
 
   it('retorna status 200', async function () {
-    // Arrange
     const productsInstance = ProductModel.build(productsMock.allProducts[0]);
     sinon.stub(productsService, 'getAll').resolves({
       status: 'SUCCESSFUL',
       data: [productsInstance],
     });
-    // Act
+
     await productsController.getAll(req, res); 
-    // Assert  
+
     expect(res.status).to.have.been.calledWith(200);
   });
 });
