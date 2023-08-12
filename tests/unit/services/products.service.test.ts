@@ -21,9 +21,9 @@ describe('ProductsService', function () {
   it('insertProduct - retorna um status CREATED e um objeto', async function () {
 
     const productsInstance = ProductModel.build(productsMock.insertProduct);
-    sinon.stub(ProductModel, 'insertProduct').resolves(productsInstance);
+    sinon.stub(ProductModel, 'create').resolves(productsInstance);
 
-    const productResponse = await productsService.insertProduct();
+    const productResponse = await productsService.insertProduct(productsMock.insertProduct);
 
     expect(productResponse.status).to.eq('CREATED');  
     expect(productResponse.data).to.be.instanceOf(Object);
