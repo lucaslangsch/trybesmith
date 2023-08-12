@@ -7,7 +7,7 @@ import productsService from '../../../src/services/products.service';
 describe('ProductsService', function () {
   beforeEach(function () { sinon.restore(); });
 
-  it('retorna um status SUCCESSFULL e um array', async function () {
+  it('getAll - retorna um status SUCCESSFULL e um array', async function () {
 
     const productsInstance = ProductModel.build(productsMock.allProducts[0]);
     sinon.stub(ProductModel, 'findAll').resolves([productsInstance]);
@@ -16,5 +16,16 @@ describe('ProductsService', function () {
 
     expect(productResponse.status).to.eq('SUCCESSFUL');  
     expect(productResponse.data).to.be.instanceOf(Array);
+  });
+
+  it('insertProduct - retorna um status CREATED e um objeto', async function () {
+
+    const productsInstance = ProductModel.build(productsMock.insertProduct);
+    sinon.stub(ProductModel, 'insertProduct').resolves(productsInstance);
+
+    const productResponse = await productsService.insertProduct();
+
+    expect(productResponse.status).to.eq('CREATED');  
+    expect(productResponse.data).to.be.instanceOf(Object);
   });
 });

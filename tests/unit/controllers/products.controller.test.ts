@@ -19,7 +19,7 @@ describe('ProductsController', function () {
     sinon.restore();
   });
 
-  it('retorna status 200', async function () {
+  it('getAll - retorna status 200', async function () {
     const productsInstance = ProductModel.build(productsMock.allProducts[0]);
     sinon.stub(productsService, 'getAll').resolves({
       status: 'SUCCESSFUL',
@@ -29,5 +29,17 @@ describe('ProductsController', function () {
     await productsController.getAll(req, res); 
 
     expect(res.status).to.have.been.calledWith(200);
+  });
+
+  it('insertProduct - retorna status 200', async function () {
+    const productsInstance = ProductModel.build(productsMock.insertProduct);
+    sinon.stub(productsService, 'insertProduct').resolves({
+      status: 'CREATED',
+      data: productsInstance,
+    });
+
+    await productsController.insertProduct(req, res); 
+
+    expect(res.status).to.have.been.calledWith(201);
   });
 });
