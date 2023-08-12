@@ -1,4 +1,4 @@
-import { Request, Response, json } from 'express';
+import { Request, Response } from 'express';
 import productsService from '../services/products.service';
 import mapStatusHTTP from '../utils/mapStatusHTTP';
 
