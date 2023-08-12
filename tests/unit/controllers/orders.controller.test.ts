@@ -5,7 +5,7 @@ import { Request, Response } from 'express';
 import OrderModel from '../../../src/database/models/order.model';
 import ordersMock from '../../mocks/orders.mock';
 import orderService from '../../../src/services/orders.service';
-import ordersController from '../../../src/controllers/orders.controller';
+import ordersController from '../../../src/controllers/orders.controllers';
 
 chai.use(sinonChai);
 

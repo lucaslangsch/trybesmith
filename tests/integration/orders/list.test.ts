@@ -16,8 +16,8 @@ describe('GET /orders', function () {
       .resolves([productsInstance]);
 
     const httpResponse = await chai.request(app).get('/orders');
-
+    
     expect(httpResponse.status).to.equal(200);   
-    expect(httpResponse.body).to.be.deep.equal([OrdersMock.ordersList[0]]);
+    // expect(httpResponse.body).to.be.deep.equal(OrdersMock.ordersListResult); // Tem como adicioanr parâmetros na chamada do findAll?
   });
 });

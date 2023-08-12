@@ -16,7 +16,6 @@ describe('POST /products', function () {
       .resolves(productsInstance);
 
     const httpResponse = await chai.request(app).post('/products').send(productsInstance);
-    // console.log(httpResponse.body);
     
     expect(httpResponse.status).to.equal(201);   
     // expect(httpResponse.body).to.be.deep.equal(productsMock.resultInsertProduct); // não está retornando id, pq????
