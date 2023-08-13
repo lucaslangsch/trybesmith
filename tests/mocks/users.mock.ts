@@ -1,32 +1,32 @@
 const userLogin = {
-  username: 'Nome Correto',
-  password: 'Password Correto'
+  username: 'NomeCorreto',
+  password: 'PasswordCorreto',
 };
 
 const userLoginWrongUsername = {
-  username: 'Nome',
-  password: 'Password Correto',
+  username: 'Xablau',
+  password: 'PasswordCorreto',
 };
 
 const userLoginWrongPassword = {
-  username: 'Nome Correto',
+  username: 'NomeCorreto',
   password: 'Password',
 };
 
 const userLoginWithoutPassword = {
-  username: 'Nome Correto',
+  username: 'NomeCorreto',
   password: '',
 };
 
 const userLoginWithoutUsername = {
   username: '',
-  password: 'Password Correto',
+  password: 'PasswordCorreto',
 };
 
 const userComplete = {
   id: 1,
-  username: 'Nome Correto',
-  password: 'Password Correto',
+  username: 'NomeCorreto',
+  password: '$2y$10$AxJ8S02.eZmNZhYkzgzAc.2qL2ymrAhmSLdAfklbk6BNadRm.cMQy',
   vocation: 'teste',
   level: 1,
 };

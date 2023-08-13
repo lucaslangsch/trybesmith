@@ -23,7 +23,7 @@ describe('LoginController', function () {
     const productsInstance = UserModel.build(usersMock.userComplete);
     sinon.stub(userService, 'getUser').resolves({
       status: 'SUCCESSFUL',
-      data: usersMock.userComplete.password,
+      data: { token: 'sdfsdf' },
     });
 
     await userController.getUser(req, res); 
