@@ -10,7 +10,7 @@ chai.use(chaiHttp);
 describe('GET /orders', function () { 
   beforeEach(function () { sinon.restore(); });
 
-  it('Testa se o endpoint retorna um array de objetos', async () => {
+  it('Testa se o endpoint retorna um status 200', async () => {
     const productsInstance = OrderModel.build(OrdersMock.ordersList[0]);
     sinon.stub(OrderModel, 'findAll')
       .resolves([productsInstance]);
