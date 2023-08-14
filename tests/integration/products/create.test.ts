@@ -15,9 +15,20 @@ describe('POST /products', function () {
     sinon.stub(ProductModel, 'create')
       .resolves(productsInstance);
 
-    const httpResponse = await chai.request(app).post('/products').send(productsInstance);
+    const httpResponse = await chai.request(app).post('/products').send(productsMock.insertProduct);
     
     expect(httpResponse.status).to.equal(201);   
     // expect(httpResponse.body).to.be.deep.equal(productsMock.resultInsertProduct); // não está retornando id, pq????
+  });
+
+  it('Testa se o endpoint retorna um status 400 com um produto sem nome', async () => {
+    const productsInstance = ProductModel.build(productsMock.productWhitoutName);
+    sinon.stub(ProductModel, 'create')
+      .resolves(productsInstance);
+
+    const httpResponse = await chai.request(app).post('/products').send(productsMock.productWhitoutName);
+    
+    expect(httpResponse.status).to.equal(400);
+    expect(httpResponse.body).to.be.deep.equal({ message: '"name" is required' })
   });
 });
