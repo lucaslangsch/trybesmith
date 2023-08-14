@@ -21,34 +21,20 @@ async function getAll():Promise<ServiceResponse<OrderSequelizeModel[]>> {
   return { status: 'SUCCESSFUL', data: orders };
 }
 
-async function getById(id:number):Promise<ServiceResponse<any>> {
-  const order = await OrderModel.findByPk(id, {
-    include: [
-      { model: ProductModel, as: 'productIds', attributes: [] },
-    ],
-    attributes: [
-      'userId',
-      [sequelize.fn('JSON_ARRAYAGG', sequelize.col('productIds.id')), 'productIds'],
-    ],
-    group: ['Order.id'],
-    raw: true,
-  });
-  return { status: 'SUCCESSFUL', data: order };
-}
-
-async function newOrder(req: OrderById):Promise<ServiceResponse<any>> {
+async function newOrder(req: OrderById):Promise<ServiceResponse<OrderById>> {
   const user = await UserModel.findOne({ where: { id: req.userId } });
   if (!user) {
     return { status: 'NOT_FOUND', data: { message: '"userId" not found' } };
   }
+  await sequelize.transaction(async (t) => {
+    const order = await OrderModel.create({ userId: req.userId }, { transaction: t });
+    const updatedProducts = req.productIds.map((productId:number) => ProductModel.update({ 
+      orderId: order.dataValues.id }, { where: { id: productId } }));
+    await Promise.all(updatedProducts);
 
-  const order = await OrderModel.create({ userId: req.userId });
-  const updatedProducts = req.productIds.map((productId:number) => ProductModel.update({ 
-    orderId: order.dataValues.id }, { where: { id: productId } }));
-  await Promise.all(updatedProducts);
-
-  const orderUpdated = await getById(order.dataValues.id);
-  return { status: 'CREATED', data: orderUpdated.data };
+    return { status: 'CREATED', data: { userId: req.userId, productIds: req.productIds } };
+  });
+  return { status: 'CREATED', data: { userId: req.userId, productIds: req.productIds } };
 }
 
 export default {

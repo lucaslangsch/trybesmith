@@ -1,5 +1,5 @@
-import jwt, { SignOptions, VerifyOptions } from 'jsonwebtoken';
-import { JwtTypePayload } from '../types/JwtPayload';
+import jwt, { Jwt, JwtPayload, SignOptions, VerifyOptions } from 'jsonwebtoken';
+// import { JwtTypePayload } from '../types/JwtPayload';
 import { Payload } from '../types/Payload';
 
 const secret = process.env.JWT_SECRET || 'xablau';
@@ -9,6 +9,8 @@ const verifyOptions: VerifyOptions = { algorithms: ['HS256'] };
 
 const createToken = (payload:Payload):string => jwt.sign(payload, secret, jwtConfig);
 
-const getPayload = (token:string):JwtTypePayload | any => jwt.verify(token, secret, verifyOptions);
+const getPayload = (token:string): Jwt | JwtPayload | string => (
+  jwt.verify(token, secret, verifyOptions)
+);
 
 export default { createToken, getPayload };
