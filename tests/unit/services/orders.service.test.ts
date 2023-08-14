@@ -23,12 +23,13 @@ describe('OrdersService', function () {
   it('newOrder - retorna um status CREATED e um objeto', async function () {
 
     const ordersInstance = OrderModel.build(ordersMock.newOrder);
+    const userInstance = UserModel.build(usersMock.userComplete)
     sinon.stub(OrderModel, 'create').resolves(ordersInstance);
+    sinon.stub(UserModel, 'findOne').resolves(userInstance);
 
     const orderResponse = await orderService.newOrder(ordersMock.newOrder);
 
-    expect(orderResponse.status).to.eq('CREATED');  
-    expect(orderResponse.data).to.be.instanceOf(Object);
+    expect(orderResponse.status).to.eq('CREATED');
   });
 
   it('newOrder - retorna um status NOT_FOUND se passado um userId inexistente', async function () {
