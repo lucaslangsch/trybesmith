@@ -18,7 +18,7 @@ async function getUser(req:UserLogin):Promise<ServiceResponse<UserSequelizeModel
   const { id, username } = user.dataValues;
   const payload = { id, username };
   const token = JWT.createToken(payload);
-
+  // console.log(user);
   return { status: 'SUCCESSFUL', data: { token } };
 }
 

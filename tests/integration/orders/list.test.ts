@@ -11,13 +11,12 @@ describe('GET /orders', function () {
   beforeEach(function () { sinon.restore(); });
 
   it('Testa se o endpoint retorna um status 200', async () => {
-    const productsInstance = OrderModel.build(OrdersMock.ordersList[0]);
+    const ordersInstance = OrderModel.build(OrdersMock.ordersList[0]);
     sinon.stub(OrderModel, 'findAll')
-      .resolves([productsInstance]);
+      .resolves([ordersInstance]);
 
     const httpResponse = await chai.request(app).get('/orders');
     
     expect(httpResponse.status).to.equal(200);   
-    // expect(httpResponse.body).to.be.deep.equal(OrdersMock.ordersListResult); // Tem como adicioanr parâmetros na chamada do findAll?
   });
 });

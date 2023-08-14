@@ -9,23 +9,23 @@ describe('LoginService', function () {
 
   it('login - retorna um status SUCCESSFULL', async function () {
 
-    const productsInstance = UserModel.build(usersMock.userComplete);
-    sinon.stub(UserModel, 'findOne').resolves(productsInstance);
+    const userInstance = UserModel.build(usersMock.userComplete);
+    sinon.stub(UserModel, 'findOne').resolves(userInstance);
 
-    const productResponse = await userService.getUser(usersMock.userLogin);
+    const userResponse = await userService.getUser(usersMock.userLogin);
 
-    expect(productResponse.status).to.eq('SUCCESSFUL');
+    expect(userResponse.status).to.eq('SUCCESSFUL');
   });
 
   it('login - retorna um status UNAUTHORIZED', async function () {
 
-    const productsInstance = UserModel.build(usersMock.userComplete);
-    sinon.stub(UserModel, 'findOne').resolves(productsInstance);
+    const userInstance = UserModel.build(usersMock.userComplete);
+    sinon.stub(UserModel, 'findOne').resolves(userInstance);
 
-    const productResponse = await userService.getUser(usersMock.userLoginWrongPassword);
+    const userResponse = await userService.getUser(usersMock.userLoginWrongPassword);
     
-    expect(productResponse.status).to.eq('UNAUTHORIZED');
-    expect(productResponse.data).to.be.deep.equal({ message: 'Username or password invalid' });
+    expect(userResponse.status).to.eq('UNAUTHORIZED');
+    expect(userResponse.data).to.be.deep.equal({ message: 'Username or password invalid' });
   });
 
 });

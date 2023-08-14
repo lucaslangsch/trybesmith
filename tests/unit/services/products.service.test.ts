@@ -28,4 +28,70 @@ describe('ProductsService', function () {
     expect(productResponse.status).to.eq('CREATED');  
     expect(productResponse.data).to.be.instanceOf(Object);
   });
+
+  it('insertProduct - retorna um status INVALID_DATA e a mensagem ""name" is required" se não existir um nome no corpo da requisição', async function () {
+
+    const productsInstance = ProductModel.build(productsMock.insertProduct);
+    sinon.stub(ProductModel, 'create').resolves(productsInstance);
+
+    const productResponse = await productsService.insertProduct(productsMock.productWhitoutName);
+
+    expect(productResponse.status).to.eq('INVALID_DATA');  
+    expect(productResponse.data).to.be.deep.equal({ message: '"name" is required' });
+  });
+
+  // it('insertProduct - retorna um status UNPROCESSABLE_ENTITY e a mensagem ""name" must be a string" se o nome não for do tipo string', async function () {
+
+  //   const productsInstance = ProductModel.build(productsMock.insertProduct);
+  //   sinon.stub(ProductModel, 'create').resolves(productsInstance);
+
+  //   const productResponse = await productsService.insertProduct(productsMock.productWrongTypeName);
+
+  //   expect(productResponse.status).to.eq('UNPROCESSABLE_ENTITY');  
+  //   expect(productResponse.data).to.be.deep.equal({ message: '"name" must be a string' });
+  // });
+
+  it('insertProduct - retorna um status UNPROCESSABLE_ENTITY e a mensagem ""name" length must be at least 3 characters long" se o nome não tiver mais 3 ou mais caracteres', async function () {
+
+    const productsInstance = ProductModel.build(productsMock.insertProduct);
+    sinon.stub(ProductModel, 'create').resolves(productsInstance);
+
+    const productResponse = await productsService.insertProduct(productsMock.productWrongLengthName);
+
+    expect(productResponse.status).to.eq('UNPROCESSABLE_ENTITY');  
+    expect(productResponse.data).to.be.deep.equal({ message: '"name" length must be at least 3 characters long' });
+  });
+
+  it('insertProduct - retorna um status INVALID_DATA e a mensagem ""price" is required" se não existir um price no corpo da requisição', async function () {
+
+    const productsInstance = ProductModel.build(productsMock.insertProduct);
+    sinon.stub(ProductModel, 'create').resolves(productsInstance);
+
+    const productResponse = await productsService.insertProduct(productsMock.productWhitoutPrice);
+
+    expect(productResponse.status).to.eq('INVALID_DATA');  
+    expect(productResponse.data).to.be.deep.equal({ message: '"price" is required' });
+  });
+
+  // it('insertProduct - retorna um status UNPROCESSABLE_ENTITY e a mensagem ""price" must be a string" se o price não for do tipo string', async function () {
+
+  //   const productsInstance = ProductModel.build(productsMock.insertProduct);
+  //   sinon.stub(ProductModel, 'create').resolves(productsInstance);
+
+  //   const productResponse = await productsService.insertProduct(productsMock.productWrongTypePrice);
+
+  //   expect(productResponse.status).to.eq('UNPROCESSABLE_ENTITY');  
+  //   expect(productResponse.data).to.be.deep.equal({ message: '"price" must be a string' });
+  // });
+
+  it('insertProduct - retorna um status UNPROCESSABLE_ENTITY e a mensagem ""price" length must be at least 3 characters long" se o price não tiver mais 3 ou mais caracteres', async function () {
+
+    const productsInstance = ProductModel.build(productsMock.insertProduct);
+    sinon.stub(ProductModel, 'create').resolves(productsInstance);
+
+    const productResponse = await productsService.insertProduct(productsMock.productWrongLengthPrice);
+
+    expect(productResponse.status).to.eq('UNPROCESSABLE_ENTITY');  
+    expect(productResponse.data).to.be.deep.equal({ message: '"price" length must be at least 3 characters long' });
+  });
 });

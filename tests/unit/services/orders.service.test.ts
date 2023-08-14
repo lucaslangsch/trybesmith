@@ -9,12 +9,12 @@ describe('OrdersService', function () {
 
   it('getAll - retorna um status SUCCESSFULL e um array', async function () {
 
-    const productsInstance = OrderModel.build(ordersMock.ordersList[0]);
-    sinon.stub(OrderModel, 'findAll').resolves([productsInstance]);
+    const ordersInstance = OrderModel.build(ordersMock.ordersList[0]);
+    sinon.stub(OrderModel, 'findAll').resolves([ordersInstance]);
 
-    const productResponse = await orderService.getAll();
+    const orderResponse = await orderService.getAll();
 
-    expect(productResponse.status).to.eq('SUCCESSFUL');  
-    expect(productResponse.data).to.be.instanceOf(Array);
+    expect(orderResponse.status).to.eq('SUCCESSFUL');  
+    expect(orderResponse.data).to.be.instanceOf(Array);
   });
 });

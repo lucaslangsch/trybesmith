@@ -10,7 +10,7 @@ const userLoginWrongUsername = {
 
 const userLoginWrongPassword = {
   username: 'NomeCorreto',
-  password: 'Password',
+  password: 'PasswordIncorret',
 };
 
 const userLoginWithoutPassword = {

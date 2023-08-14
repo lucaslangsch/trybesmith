@@ -20,7 +20,7 @@ describe('LoginController', function () {
   });
 
   it('login - retorna status 200', async function () {
-    const productsInstance = UserModel.build(usersMock.userComplete);
+    const userInstance = UserModel.build(usersMock.userComplete);
     sinon.stub(userService, 'getUser').resolves({
       status: 'SUCCESSFUL',
       data: { token: 'sdfsdf' },

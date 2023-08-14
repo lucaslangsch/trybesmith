@@ -11,19 +11,19 @@ describe('POST /login', function () {
   beforeEach(function () { sinon.restore(); });
 
   it('Testa se o endpoint retorna um status 200 ao receber login e password corretos', async () => {
-    const productsInstance = UserModel.build(usersMock.userComplete);
+    const userInstance = UserModel.build(usersMock.userComplete);
     sinon.stub(UserModel, 'findOne')
-      .resolves(productsInstance);
+      .resolves(userInstance);
 
     const httpResponse = await chai.request(app).post('/login').send(usersMock.userLogin);
     
     expect(httpResponse.status).to.equal(200); 
   });
 
-  // it('Testa se o endpoint retorna um status 401 ao receber login incorreto', async () => {
-  //   const productsInstance = UserModel.build(usersMock.userComplete);
+  // it.only('Testa se o endpoint retorna um status 401 ao receber login incorreto', async () => {
+  //   const userInstance = UserModel.build(usersMock.userComplete);
   //   sinon.stub(UserModel, 'findOne')
-  //     .resolves(productsInstance);
+  //     .resolves(userInstance);
 
   //   const httpResponse = await chai.request(app).post('/login').send(usersMock.userLoginWrongUsername);
     
@@ -32,9 +32,9 @@ describe('POST /login', function () {
   // });
 
   it('Testa se o endpoint retorna um status 401 ao receber password incorreto', async () => {
-    const productsInstance = UserModel.build(usersMock.userComplete);
+    const userInstance = UserModel.build(usersMock.userComplete);
     sinon.stub(UserModel, 'findOne')
-      .resolves(productsInstance);
+      .resolves(userInstance);
 
     const httpResponse = await chai.request(app).post('/login').send(usersMock.userLoginWrongPassword);
     
@@ -43,9 +43,9 @@ describe('POST /login', function () {
   });
 
   it('Testa se o endpoint retorna um status 400 se não receber o campo username', async () => {
-    const productsInstance = UserModel.build(usersMock.userComplete);
+    const userInstance = UserModel.build(usersMock.userComplete);
     sinon.stub(UserModel, 'findOne')
-      .resolves(productsInstance);
+      .resolves(userInstance);
 
     const httpResponse = await chai.request(app).post('/login').send(usersMock.userLoginWithoutUsername);
     
@@ -54,9 +54,9 @@ describe('POST /login', function () {
   });
 
   it('Testa se o endpoint retorna um status 400 se não receber o campo password', async () => {
-    const productsInstance = UserModel.build(usersMock.userComplete);
+    const userInstance = UserModel.build(usersMock.userComplete);
     sinon.stub(UserModel, 'findOne')
-      .resolves(productsInstance);
+      .resolves(userInstance);
 
     const httpResponse = await chai.request(app).post('/login').send(usersMock.userLoginWithoutPassword);
     

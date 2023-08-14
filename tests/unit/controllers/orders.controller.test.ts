@@ -20,10 +20,10 @@ describe('OrdersController', function () {
   });
 
   it('getAll - retorna status 200', async function () {
-    const productsInstance = OrderModel.build(ordersMock.ordersList[0]);
+    const userInstance = OrderModel.build(ordersMock.ordersList[0]);
     sinon.stub(orderService, 'getAll').resolves({
       status: 'SUCCESSFUL',
-      data: [productsInstance],
+      data: [userInstance],
     });
 
     await ordersController.getAll(req, res); 
