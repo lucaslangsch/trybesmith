@@ -4,6 +4,7 @@ import chaiHttp from 'chai-http';
 import app from '../../../src/app';
 import OrderModel from '../../../src/database/models/order.model';
 import ordersMock from '../../mocks/orders.mock';
+import jwt from 'jsonwebtoken';
 
 chai.use(chaiHttp);
 
@@ -14,10 +15,10 @@ describe('POST /orders', function () {
     const orderInstance = OrderModel.build(ordersMock.newOrder);
     sinon.stub(OrderModel, 'create')
       .resolves(orderInstance);
+    sinon.stub(jwt, 'verify').resolves()
 
-    const httpResponse = await chai.request(app).post('/orders').send(ordersMock.newOrder);
+    const httpResponse = await chai.request(app).post('/orders').send(ordersMock.newOrder).set('Authorization', 'Bearer 123456');
     
     expect(httpResponse.status).to.equal(201);   
-    // expect(httpResponse.body).to.be.deep.equal(productsMock.resultInsertProduct); // não está retornando id, pq????
   });
 });

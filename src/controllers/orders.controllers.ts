@@ -7,6 +7,12 @@ async function getAll(req: Request, res: Response): Promise<Response> {
   return res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
 }
 
+async function newOrder(req: Request, res: Response): Promise<Response> {
+  const serviceResponse = await ordersService.newOrder(req.body);
+  return res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
+}
+
 export default {
   getAll,
+  newOrder,
 };

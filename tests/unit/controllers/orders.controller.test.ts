@@ -35,7 +35,7 @@ describe('OrdersController', function () {
     const orderInstance = OrderModel.build(ordersMock.newOrder);
     sinon.stub(orderService, 'newOrder').resolves({
       status: 'SUCCESSFUL',
-      data: [orderInstance],
+      data: orderInstance,
     });
 
     await ordersController.newOrder(req, res); 

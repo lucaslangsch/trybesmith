@@ -20,16 +20,16 @@ describe('POST /login', function () {
     expect(httpResponse.status).to.equal(200); 
   });
 
-  // it.only('Testa se o endpoint retorna um status 401 ao receber login incorreto', async () => {
-  //   const userInstance = UserModel.build(usersMock.userComplete);
-  //   sinon.stub(UserModel, 'findOne')
-  //     .resolves(userInstance);
+  it('Testa se o endpoint retorna um status 401 ao receber login incorreto', async () => {
+    UserModel.build(usersMock.userComplete);
+    sinon.stub(UserModel, 'findOne')
+      .resolves();
 
-  //   const httpResponse = await chai.request(app).post('/login').send(usersMock.userLoginWrongUsername);
+    const httpResponse = await chai.request(app).post('/login').send(usersMock.userLoginWrongUsername);
     
-  //   expect(httpResponse.status).to.equal(401);
-  //   expect(httpResponse.body).to.contain({message: 'Username or password invalid'});
-  // });
+    expect(httpResponse.status).to.equal(401);
+    expect(httpResponse.body).to.contain({message: 'Username or password invalid'});
+  });
 
   it('Testa se o endpoint retorna um status 401 ao receber password incorreto', async () => {
     const userInstance = UserModel.build(usersMock.userComplete);
