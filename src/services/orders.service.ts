@@ -26,15 +26,19 @@ async function newOrder(req: OrderById):Promise<ServiceResponse<OrderById>> {
   if (!user) {
     return { status: 'NOT_FOUND', data: { message: '"userId" not found' } };
   }
-  await sequelize.transaction(async (t) => {
-    const order = await OrderModel.create({ userId: req.userId }, { transaction: t });
-    const updatedProducts = req.productIds.map((productId:number) => ProductModel.update({ 
-      orderId: order.dataValues.id }, { where: { id: productId } }));
-    await Promise.all(updatedProducts);
+  try {
+    await sequelize.transaction(async (t) => {
+      const order = await OrderModel.create({ userId: req.userId }, { transaction: t });
+      const updatedProducts = req.productIds.map((productId:number) => ProductModel.update({ 
+        orderId: order.dataValues.id }, { where: { id: productId } }));
+      await Promise.all(updatedProducts);
 
+      return { status: 'CREATED', data: { userId: req.userId, productIds: req.productIds } };
+    });
     return { status: 'CREATED', data: { userId: req.userId, productIds: req.productIds } };
-  });
-  return { status: 'CREATED', data: { userId: req.userId, productIds: req.productIds } };
+  } catch (error) {
+    return { status: 'UNAUTHORIZED', data: { message: 'impossible to create new order' } };
+  }
 }
 
 export default {
