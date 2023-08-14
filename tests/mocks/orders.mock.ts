@@ -11,6 +11,13 @@ const ordersList = [
   }
 ];
 
+const newOrder = {
+  id: 1,
+  userId: 2,
+  productIds: [1, 2]
+};
+
 export default {
   ordersList,
+  newOrder,
 };
